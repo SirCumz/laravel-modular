@@ -1,0 +1,35 @@
+{
+    "name": "SirCumz/laravel-modular",
+    "description": "A Laravel 5.4 package for a modular design.",    
+    "type": "package",
+    "keywords": ["laravel", "modular"],
+    "homepage": "https://github.com/SirCumz/laravel-modular",
+    "license": "MIT",  
+    "authors": [
+        {
+            "name": "Tjip Kloosterman",
+            "email": "jefferso_83@hotmail.com"
+        }
+    ],   
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "SirCumz\\LaravelModular\\LaravelModularServiceProvider"
+            ]
+        }
+    },       
+    "require": {
+        "php": "^5.4 || ^7.0"
+    },    
+    "autoload": {
+        "files": [
+            "src/helpers.php",
+        ],        
+        "psr-4" : {
+            "SirCumz\\" : "src"
+        }
+    }
+}
