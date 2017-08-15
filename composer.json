@@ -1,7 +1,6 @@
 {
     "name": "SirCumz/laravel-modular",
     "description": "A Laravel 5.4 package for a modular design.",    
-    "type": "package",
     "keywords": ["laravel", "modular"],
     "homepage": "https://github.com/SirCumz/laravel-modular",
     "license": "MIT",  
