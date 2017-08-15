@@ -9,17 +9,7 @@
             "name": "Tjip Kloosterman",
             "email": "jefferso_83@hotmail.com"
         }
-    ],   
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.0.1-dev"
-        },
-        "laravel": {
-            "providers": [
-                "SirCumz\\LaravelModular\\LaravelModularServiceProvider"
-            ]
-        }
-    },       
+    ],         
     "require": {
         "php": "^5.4 || ^7.0"
     },    
