@@ -11,6 +11,9 @@
         }
     ],   
     "extra": {
+        "branch-alias": {
+            "dev-master": "0.0.1-dev"
+        },
         "laravel": {
             "providers": [
                 "SirCumz\\LaravelModular\\LaravelModularServiceProvider"
