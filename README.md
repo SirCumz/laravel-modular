@@ -34,12 +34,10 @@ Add the following code to "webpack.mix.js" if you want to enable asset compiling
         }    
     }
 
-And inside a module "app/Modules/Blog" create a mix.js file and paste the following code.
-
-Example:
+And inside the "app/Modules/Example" module, you will find an example mix.js file:
 
     module.exports = {
         mix: function(mix) {
-            mix.sass( __dirname + '/assets/css/profile.css', 'public/modules/profile/css/profile.css'); 
+            mix.sass( __dirname + '/assets/css/example.css', 'public/modules/example/css/example.css'); 
         }
     }
