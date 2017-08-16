@@ -13,7 +13,9 @@ class LaravelModularServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //       
+        $this->publishes([
+            __DIR__.'/Modules' => app_path('Modules'),
+        ], 'modules');   
     }
 
     /**
@@ -23,12 +25,15 @@ class LaravelModularServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        foreach($this->app['files']->directories( modules_path() ) as $dir)
+        if($this->app['files']->exists( modules_path() ))
         {
-            if($this->app['files']->exists($dir. '\ServiceProvider.php'))
+            foreach($this->app['files']->directories( modules_path() ) as $dir)
             {
-                $this->app->register('App\Modules\\' . basename($dir) . '\ServiceProvider');
-            }        
-        }        
+                if($this->app['files']->exists($dir. '\ServiceProvider.php'))
+                {
+                    $this->app->register('App\Modules\\' . basename($dir) . '\ServiceProvider');
+                }        
+            }   
+        } 
     }
 }
