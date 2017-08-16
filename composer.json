@@ -4,6 +4,9 @@
     "keywords": ["laravel", "modular"],
     "homepage": "https://github.com/SirCumz/laravel-modular",
     "license": "MIT",  
+    "config": {
+        "preferred-install": "source"
+    },   
     "authors": [
         {
             "name": "Tjip Kloosterman",
