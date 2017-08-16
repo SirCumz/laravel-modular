@@ -20,5 +20,13 @@
         "psr-4" : {
             "SirCumz\\LaravelModular\\" : "src"
         }
-    }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php -r \"is_dir('app/Modules') || mkdir('app/Modules');\""
+        ],
+        "post-update-cmd": [
+            "php -r \"is_dir('app/Modules') || mkdir('app/Modules');\""
+        ]        
+    }    
 }

@@ -13,9 +13,7 @@ class LaravelModularServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([
-            __DIR__.'/Modules' => app_path('Modules'),
-        ], 'modules');   
+        //
     }
 
     /**
