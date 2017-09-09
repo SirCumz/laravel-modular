@@ -34,6 +34,6 @@ class LaravelModularServiceProvider extends ServiceProvider
                     $this->app->register('App\Modules\\' . basename($dir) . '\ServiceProvider');
                 }        
             }   
-        } 
+        }  
     }
 }
