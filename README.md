@@ -27,7 +27,14 @@ To view the output of the **Example module** goto:
     http://localhost/Example
 
 
+Theme support with laravel-themes
+-------
+Laravel Modular depends on laravel-themes! make sure you install and configure this package.
+
+see: https://github.com/SirCumz/laravel-themes
+
 Compiling Module Assets with laravel-mixable
 -------
+Laravel Modular depends on laravel-mixable! make sure you install and configure this package.
 
 see: https://github.com/SirCumz/laravel-mixable
