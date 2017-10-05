@@ -27,36 +27,7 @@ To view the output of the **Example module** goto:
     http://localhost/Example
 
 
-Compiling Module Assets with laravel Mix
+Compiling Module Assets with laravel-mixable
 -------
-Append the following code to "webpack.mix.js" if you want to enable asset compiling for modules.
 
-    /*
-     |--------------------------------------------------------------------------
-     | Mix Asset Management For Modules
-     |--------------------------------------------------------------------------
-     |
-     | Mix Module assets
-     | If a module has a mix.js file, it will be compiled into the mix
-     |
-     */
-    var fs = require('fs');
-
-    var dirs = fs.readdirSync('./app/Modules');
-
-    for (var i=0; i<dirs.length; i++) 
-    {
-        var file = './app/Modules/' + dirs[i];
-
-        var stat = fs.statSync(file);
-
-        if(stat.isDirectory())
-        {
-            if(fs.existsSync(file + '/mix.js'))
-            {                 
-                require(file + '/mix.js').mix( mix );
-            }             
-        }    
-    }
-
-
+see: https://github.com/SirCumz/laravel-mixable
