@@ -1,6 +1,6 @@
 laravel-modular!
 ===================
-[![Latest Stable Version](https://poser.pugx.org/SirCumz/laravel-modular/v/stable)](https://packagist.org/packages/SirCumz/laravel-modular) [![Total Downloads](https://poser.pugx.org/SirCumz/laravel-modular/downloads)](https://packagist.org/packages/SirCumz/laravel-modular) [![Latest Unstable Version](https://poser.pugx.org/SirCumz/laravel-modular/v/unstable)](https://packagist.org/packages/SirCumz/laravel-modular) [![License](https://poser.pugx.org/SirCumz/laravel-modular/license)](https://packagist.org/packages/SirCumz/laravel-modular)
+[![Latest Stable Version](https://poser.pugx.org/sircumz/laravel-modular/v/stable)](https://packagist.org/packages/sircumz/laravel-modular) [![Total Downloads](https://poser.pugx.org/sircumz/laravel-modular/downloads)](https://packagist.org/packages/sircumz/laravel-modular) [![Latest Unstable Version](https://poser.pugx.org/sircumz/laravel-modular/v/unstable)](https://packagist.org/packages/sircumz/laravel-modular) [![License](https://poser.pugx.org/sircumz/laravel-modular/license)](https://packagist.org/packages/sircumz/laravel-modular)
 
 A Laravel 5.4+ package for a modular design.
 
