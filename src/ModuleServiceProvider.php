@@ -7,7 +7,27 @@ use Illuminate\Support\Facades\Route;
 
 class ModuleServiceProvider extends ServiceProvider
 {
+
+    /**
+     * Module name.
+     *
+     * @return string
+     */
     protected $moduleName;
+
+    /**
+     * Module namespace.
+     *
+     * @return string
+     */
+    protected $namespace;    
+
+    /**
+     * Module path.
+     *
+     * @return string
+     */
+    protected $path;
 
     /**
      * Create a new service provider instance.
@@ -19,11 +39,15 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $this->app = $app;
 
-        $this->moduleName = basename(str_replace('\ServiceProvider','',get_class($this)));
+        $reflection = new \ReflectionClass($this);
+
+        $this->namespace = $reflection->getNamespaceName();
+        $this->path = dirname($reflection->getFileName());
+        $this->moduleName = basename($this->namespace);  
     }
 
     /**
-     * Load the given routes file if routes are not already cached.
+     * Load the Web routes file if routes are not already cached.
      *
      * @param  string  $path
      * @return void
@@ -32,13 +56,13 @@ class ModuleServiceProvider extends ServiceProvider
     {
         if (! $this->app->routesAreCached()) {
             Route::middleware('web')
-                 ->namespace('App\Modules\\' . $this->moduleName . '\Controllers')
-                 ->group(app_path('Modules//' . $this->moduleName . '//' . $path ));            
+                 ->namespace($this->namespace('Controllers'))
+                 ->group($this->path($path));            
         }
     }
 
     /**
-     * Load the given routes file if routes are not already cached.
+     * Load the Admin routes file if routes are not already cached.
      *
      * @param  string  $path
      * @return void
@@ -47,13 +71,13 @@ class ModuleServiceProvider extends ServiceProvider
     {
         if (! $this->app->routesAreCached()) {
             Route::middleware(['web', 'admin'])
-                 ->namespace('App\Modules\\' . $this->moduleName . '\Controllers')
-                 ->group(app_path('Modules//' . $this->moduleName . '//' . $path ));            
+                 ->namespace($this->namespace('Controllers'))
+                 ->group($this->path($path));            
         }
     }
 
     /**
-     * Load the given routes file if routes are not already cached.
+     * Load the Api routes file if routes are not already cached.
      *
      * @param  string  $path
      * @return void
@@ -63,13 +87,13 @@ class ModuleServiceProvider extends ServiceProvider
         if (! $this->app->routesAreCached()) {
             Route::prefix('api')
                  ->middleware('api')
-                 ->namespace('App\Modules\\' . $this->moduleName . '\Controllers')
-                 ->group(app_path('Modules//' . $this->moduleName . '//' . $path ));            
+                 ->namespace($this->namespace('Controllers'))
+                 ->group($this->path($path));            
         }
     }
 
     /**
-     * Register a view file namespace.
+     * Register view file locations.
      *
      * @param  string  $path
      * @param  string  $namespace
@@ -77,15 +101,11 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function loadViews($path = 'views')
     {
-        $path = app_path('Modules//' . $this->moduleName . '//' . $path);
-
-        // if (is_dir($appPath = $this->app->resourcePath().'/views/vendor/'.$this->moduleName)) {
-        //     $this->app['view']->addNamespace($this->moduleName, $appPath);
-        // }
-
-        $this->app['view']->addNamespace($this->moduleName, themes_path('{theme}/Modules//' . $this->moduleName) );
-        $this->app['view']->addNamespace($this->moduleName, themes_path('default/Modules//' . $this->moduleName) );
-        $this->app['view']->addNamespace($this->moduleName, $path);    
+        $this->app['view']->addNamespace($this->moduleName, [
+            themes_path('{theme}/Modules/' . $this->moduleName),
+            themes_path('default/Modules/' . $this->moduleName),
+            $this->path($path)
+        ]);   
     }
 
     /**
@@ -97,9 +117,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function loadTranslations($path = 'lang')
     {
-        $path = app_path('Modules//' . $this->moduleName . '//' . $path);
-
-        $this->app['translator']->addNamespace($this->moduleName, $path);
+        $this->app['translator']->addNamespace($this->moduleName, $this->path($path));
     }
 
     /**
@@ -110,10 +128,8 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function loadMigrations($path = 'Migrations')
     {
-        $path = app_path('Modules//' . $this->moduleName . '//' . $path);
-
         $this->app->afterResolving('migrator', function ($migrator) use ($path) {
-                $migrator->path($path);
+                $migrator->path($this->path($path));
         });
     }
 
@@ -126,15 +142,56 @@ class ModuleServiceProvider extends ServiceProvider
      */
     protected function mergeConfigFrom($path, $key)
     {
-        $path = app_path('Modules//' . $this->moduleName . '//config//' . $path);
-
         $config = $this->app['config']->get($key, []);
 
-        $this->app['config']->set($key, array_merge(require $path, $config));
+        $this->app['config']->set($key, array_merge(require $this->path('config/' . $path), $config));
     }
 
+    /**
+     * Enable module asset mixing.
+     *
+     * @param  string  $file
+     * @return void
+     */
+    public function mixable( $file = 'mix.php' )
+    {
+        return $this->app['mixable']->mix(function($mix) use($file) {
+            if(is_callable($file)) {
+                $file($mix);
+            } else {
+                include($this->path($file));
+            }            
+        });
+    }
+
+    /**
+     * Module name.
+     *
+     * @return string
+     */
     public function moduleName()
     {
         return $this->moduleName;
     }
+
+    /**
+     * Module path.
+     *
+     * @return string
+     */
+    public function path( $path = null )
+    {
+        return $this->path . (($path) ? '/' . $path : null);
+    }    
+
+
+    /**
+     * Module namespace.
+     *
+     * @return string
+     */
+    public function namespace( $path = null )
+    {
+        return $this->namespace . (($path) ? '\\' . $path : null);
+    }     
 }

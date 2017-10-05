@@ -15,7 +15,8 @@
     ],         
     "require": {
         "php": "^5.4 || ^7.0",
-        "sircumz/laravel-mixable": "0.0.*"
+        "sircumz/laravel-mixable": "0.0.*",
+        "sircumz/laravel-themes": "0.0.*"
     },    
     "autoload": {
         "files": [

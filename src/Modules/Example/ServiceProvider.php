@@ -21,6 +21,8 @@ class ServiceProvider extends ModuleServiceProvider
         
         $this->loadViews(); 
 
+        $this->mixable();
+        
         //
     }
 
