@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
 <h3>Example module</h3>
